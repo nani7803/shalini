@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shalini</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #FFF6F3;
+      --card: #FFFFFF;
+      --accent: #F6AFC1;
+      --soft: #F9DDE6;
+      --muted: #D9C8E6;
+      --text: #3B3B45;
+      --gold: #FFD186;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Inter,system-ui,Arial; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;}
+    
+    header{padding:20px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:rgba(255,246,243,0.95); backdrop-filter: blur(6px); z-index:20; flex-wrap:wrap;}
+    .logo{font-family:Poppins;font-weight:600; font-size:18px; display:flex; gap:8px; align-items:center;}
+    .logo .heart{width:28px;height:28px;border-radius:50%;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;font-family:Sacramento;}
+    nav{display:flex; flex-wrap:wrap;}
+    nav a{margin-left:12px;color:var(--text); text-decoration:none; font-weight:600; margin-top:5px;}
+
+    .container{max-width:900px;margin:0 auto;padding:16px;}
+    .hero{background:linear-gradient(180deg,var(--soft),transparent);padding:30px 16px;border-radius:14px;text-align:center;}
+    .hero h1{font-family:Poppins;font-size:28px;margin-bottom:8px;line-height:1.2;}
+    .hero p{margin-bottom:16px;color:#6b6170;font-size:16px;line-height:1.5;}
+    .btn{background:var(--accent);padding:10px 16px;border-radius:10px;border:none;font-weight:600;cursor:pointer;margin:5px;position:relative; min-width:80px;}
+
+    .row{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(50,40,50,0.05);flex:1 1 260px;min-height:120px;}
+    .timeline .item{margin-bottom:12px;padding:12px;border-radius:10px;background:linear-gradient(90deg,var(--card),#fff);}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
+    .photo{position:relative;border-radius:10px;overflow:hidden;cursor:pointer;}
+    .photo img{width:100%;height:140px;object-fit:cover;display:block;}
+    .flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px;}
+    .flip{perspective:1000px;}
+    .flip-inner{transition:transform .6s;transform-style:preserve-3d; position:relative;}
+    .flip:hover .flip-inner{transform:rotateY(180deg);}
+    .flip-front,.flip-back{backface-visibility:hidden;border-radius:10px;padding:18px;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;}
+    .flip-front{background:var(--muted);}
+    .flip-back{position:absolute;left:0;top:0;right:0;bottom:0;background:var(--accent);transform:rotateY(180deg);}
+    .modal{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(10,8,10,0.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:50;}
+    .modal .content{background:#fff;padding:18px;border-radius:12px;max-width:720px;width:100%; overflow-y:auto; max-height:90vh;}
+    footer{padding:32px 16px;text-align:center;color:#6b6170;font-size:14px;}
+    .heart-btn{background:linear-gradient(90deg,var(--accent),var(--soft));border-radius:12px;padding:8px 12px;border:none;}
+    #loveQuestionPage{text-align:center;padding:50px;}
+    #lovePage{display:none;text-align:center;padding:50px;}
+
+    @media(max-width:768px){
+      .hero h1{font-size:24px;}
+      .hero p{font-size:15px;}
+      nav a{margin-left:8px;}
+      .row{flex-direction:column;}
+      .flip-grid{grid-template-columns:repeat(auto-fit,minmax(100%,1fr));gap:12px;}
+    }
+    @media(max-width:480px){
+      .hero h1{font-size:20px;}
+      .hero p{font-size:14px;}
+      header{padding:16px;}
+      .btn{padding:8px 12px;font-size:14px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Love Question Page -->
+  <div id="loveQuestionPage">
+    <h1>Do you love me, Shalini? ❤️</h1>
+    <div style="position:relative; height:60px;">
+      <button id="yesBtn" class="btn" onclick="showLove()">Yes</button>
+      <button id="noBtn" class="btn">No</button>
+    </div>
+  </div>
+
+  <!-- Full Website -->
+  <main id="fullSite" class="container" style="display:none">
+    <header>
+      <div class="logo"><span class="heart">♥</span> For Shalini</div>
+      <nav>
+        <a href="#story">Our Story</a>
+        <a href="#memories">Memories</a>
+        <a href="#reasons">Reasons</a>
+        <a href="#openwhen">Open When</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <h1>For Shalini — Our Little Universe</h1>
+      <p>Four years of laughter, long calls, healing, and quiet strength. This is a tiny love letter — made just for you.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn" onclick="scrollToId('story')">Start the Journey</button>
+      </div>
+    </section>
+
+    <!-- Our Story -->
+    <section id="story" style="margin-top:26px">
+      <h2 style="font-family:Poppins">Our Story</h2>
+      <div class="timeline card" style="margin-top:12px">
+        <div class="item"><strong>Year 1 — The Spark</strong><div style="color:#6b6170;margin-top:6px">We messaged, you laughed at my silly joke. The first hello that never ended.</div></div>
+        <div class="item"><strong>Year 2 — The Adventure</strong><div style="color:#6b6170;margin-top:6px"></div>we understand each other </div>
+        <div class="item"><strong>Year 3 — The Tests</strong><div style="color:#6b6170;margin-top:6px">Long distance stretched us, but we learned patience and better voice notes.</div></div>
+        <div class="item"><strong>Year 4 — Today & Beyond</strong><div style="color:#6b6170;margin-top:6px">A promise: more presence, more warm weekends, and growth together.</div></div>
+      </div>
+    </section>
+
+    <!-- Memory Wall -->
+    <section id="memories" style="margin-top:20px">
+      <h2 style="font-family:Poppins">Memory Wall</h2>
+      <div class="card gallery" id="gallery">
+        <div class="photo" data-title="That café — our long talk" data-voice="audio/voice1.mp3">
+          <img src="/WhatsApp Image 2025-10-23 at 11.59.53 PM.jpeg" alt="Cafe memory">
+        </div>
+        <div class="photo" data-title="Movie night on the floor" data-voice="audio/voice2.mp3">
+          <img src="/WhatsApp Image 2025-10-24 at 8.54.45 PM.jpeg" alt="Movie night">
+        </div>
+        <div class="photo" data-title="That trip we still laugh about" data-voice="audio/voice3.mp3">
+          <img src="/WhatsApp Image 2025-10-24 at 8.55.18 PM.jpeg" alt="Trip photo">
+        </div>
+      </div>
+    </section>
+
+    <!-- Reasons -->
+    <section id="reasons" style="margin-top:20px">
+      <h2 style="font-family:Poppins">50 Reasons (start with a few)</h2>
+      <div class="card flip-grid">
+        <div class="flip"><div class="flip-inner"><div class="flip-front">Reason #1</div><div class="flip-back">You laugh at my bad puns and make days brighter.</div></div></div>
+        <div class="flip"><div class="flip-inner"><div class="flip-front">Reason #2</div><div class="flip-back">without air human cannot live but without you i cannot live </div></div></div>
+        <div class="flip"><div class="flip-inner"><div class="flip-front">Reason #3</div><div class="flip-back">Your hugs feel like home </div></div></div>
+      </div>
+    </section>
+
+    <!-- Open When -->
+    <section id="openwhen" style="margin-top:20px">
+      <h2 style="font-family:Poppins">Open When...</h2>
+      <div class="row">
+        <div class="card">
+          <strong>Open when you’re sad</strong>
+          <p style="color:#6b6170">Click to open a calm voice note and a quick breathing exercise.</p>
+          <button class="btn" onclick="openModal('sad')">Open</button>
+        </div>
+        <div class="card">
+          <strong>Open when you miss me</strong>
+          <p style="color:#6b6170">A short surprise video of me saying hello.</p>
+          <button class="btn" onclick="openModal('miss')">Open</button>
+        </div>
+        <div class="card">
+          <strong>Open when you're proud</strong>
+          <p style="color:#6b6170">A note celebrating you and a tiny virtual trophy.</p>
+          <button class="btn" onclick="openModal('proud')">Open</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Playlist -->
+    <section style="margin-top:26px">
+      <h2 style="font-family:Poppins">Playlist & Voice Notes</h2>
+      <div class="card" style="padding:12px">
+        <p style="color:#6b6170">A few songs that make me think of you. (Open on Spotify)</p>
+
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0pjc9LMMaeCFF9vUbFdA1j?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6uHuw5ynf6PFpJ2adWprxu?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NdzHsGz9GTDkESwhDKINb?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6aQIGqAo9PxRKjUkhYtR6R?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <footer style="margin-top:28px">
+      <div style="max-width:700px;margin:0 auto">
+        <p style="font-weight:600">I am learning. I love you. — <span style="font-family:Sacramento">Nani</span></p>
+        <small style="display:block;margin-top:8px;color:#9a8f98">Made with a lot of soft heartbeats.</small>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" onclick="closeModal(event)">
+    <div class="content" id="modalContent" onclick="event.stopPropagation()"></div>
+  </div>
+
+<script>
+  const noBtn = document.getElementById('noBtn');
+  const loveQuestionPage = document.getElementById('loveQuestionPage');
+  const fullSite = document.getElementById('fullSite');
+
+  function showLove(){
+    loveQuestionPage.style.display = 'none';
+    fullSite.style.display = 'block';
+    window.scrollTo(0,0);
+  }
+
+  // Move No button randomly
+  noBtn.addEventListener('mouseenter', () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+  });
+
+  function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+  function openModal(key){
+    const modal=document.getElementById('modal'); 
+    const content=document.getElementById('modalContent');
+    modal.style.display='flex';
+
+    if(key==='sad'){
+      content.innerHTML = '<h3>Take a breath with me</h3><p style="color:#6b6170">Breathe in...2...3, breathe out. I am here. I love you.</p><audio controls src="audio/breath.mp3"></audio><div style="text-align:right;margin-top:8px"><button onclick="closeModal(event)" class="btn">Close</button></div>';
+    } 
+    else if(key==='miss'){
+      content.innerHTML = '<h3>Hi love</h3><video controls style="width:100%"><source src="video/hello.mp4" type="video/mp4">Your browser cannot play this video.</video><div style="text-align:right;margin-top:8px"><button onclick="closeModal(event)" class="btn">Close</button></div>';
+    } 
+    else if(key==='proud'){
+      content.innerHTML = '<h3>You did it!</h3><p style="color:#6b6170">So proud of you today. Keep shining.</p><div style="text-align:right;margin-top:8px"><button onclick="closeModal(event)" class="btn">Close</button></div>';
+    } 
+  }
+
+  function closeModal(e){if(e) e.stopPropagation(); document.getElementById('modal').style.display='none';}
+
+  // gallery click modal
+  document.querySelectorAll('.photo').forEach(p=>{
+    p.addEventListener('click',()=>{
+      const title=p.getAttribute('data-title')||'Memory';
+      const voice=p.getAttribute('data-voice')||'';
+      const img=p.querySelector('img').src;
+      const html = '<h3>'+title+'</h3><img src="'+img+'" style="width:100%;border-radius:10px"><div style="margin-top:8px">'+(voice?('<audio controls src="'+voice+'"></audio>'):'')+'</div><div style="text-align:right;margin-top:8px"><button onclick="closeModal(event)" class="btn">Close</button></div>';
+      document.getElementById('modalContent').innerHTML=html;
+      document.getElementById('modal').style.display='flex';
+    })
+  });
+
+  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeModal() }})
+</script>
+
+</body>
+</html>
